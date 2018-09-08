@@ -37,4 +37,25 @@ describe 'dry-validation' do
       it_behaves_like :no_errors
     end
   end
+
+  describe 'string hash schema' do
+    let(:schema) do
+      Dry::Validation.Schema do
+        required('name') { str? }
+        required('age') { int? }
+      end
+    end
+
+    context 'with string hash' do
+      let(:input) { { 'name' => 'foo', 'age' => 18 } }
+
+      it_behaves_like :no_errors
+    end
+
+    context 'with symbol hash', pending: true do
+      let(:input) { { name: 'foo', age: 18 } }
+
+      it_behaves_like :no_errors
+    end
+  end
 end
